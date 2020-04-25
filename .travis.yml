@@ -1,13 +1,13 @@
-  language: python
+language: python
 
-  python:
+python:
 
-   - "3.6"
+ - "3.6"
 
-  install:
+install:
 
-   - make deps 
+ - make deps 
 
-  script:
+script:
  
-    -make test
+  -make test
