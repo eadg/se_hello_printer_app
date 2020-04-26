@@ -18,3 +18,12 @@ run:
 
 docker_build:
 	docker build -t 'hello_ap_printer' .
+
+docker_clean:
+	docker rm -f 'helloprinter'
+
+docker_run: docker_build docker_clean
+	docker run \
+		--name 'helloprinter' \
+		-p 5000:5000 \
+		-d hello_ap_printer
