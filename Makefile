@@ -36,3 +36,9 @@ docker_push: docker_build
 	docker tag hello_ap_printer $(TAG); \
 	docker push $(TAG); \
 	docker logout; 
+
+test_smoke:
+	curl --fail 127.0.0.1:5000
+
+test_smoke2:
+	curl -s -o /dev/null -w "%{http_code}" --fail 127.0.0.1:5000
