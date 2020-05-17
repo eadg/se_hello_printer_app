@@ -14,27 +14,39 @@ class WizzairRegistration(unittest.TestCase):
     def testWrongEmail(self):
         driver = self.driver
         # 1. Kliknij "Zalguj sie"
-        zaloguj_btn = WebDriverWait(driver, 50)\
+        zaloguj_btn = WebDriverWait(driver, 60)\
         .until(EC.element_to_be_clickable((By.XPATH, '//button[@data-test="navigation-menu-signin"]')))
         zaloguj_btn.click()
         # 2. Kliknij "Rejestracja"
-        rejestracja_btn = WebDriverWait(driver, 50)\
+        rejestracja_btn = WebDriverWait(driver, 60)\
         .until(EC.element_to_be_clickable((By.XPATH, '//button[text()=" Rejestracja "]')))
         rejestracja_btn.click()
         # 3. Wprowadz imie
-        name_field = WebDriverWait(driver, 50)\
+        name_field = WebDriverWait(driver, 60)\
         .until(EC.presence_of_element_located((By.NAME, 'firstName')))
         name_field.send_keys("Marek")
         # 4. Wprowadz nazwisko
         nazwisko_field=driver.find_element_by_name('lastName')
         nazwisko_field.send_keys("Nowak")
         # 5. Wybierz plec
+        name_field.click()
+        gender=driver.find_element_by_xpath('//label[@data-test="register-gendermale"]') # Mezczyzna
+        gender.click()
         # 6. Wpisz kod kraju
+        country_code=driver.find_element_by_xpath('//div[@data-test="booking-register-country-code"]')
+        country_code.click()
+        country_code_input=driver.find_element_by_name('phone-number-country-code')
+        country_code_input.send_keys("+48")
+
         # 7. Wpisz numer telefonu
+        phone=driver.find_element_by_name('phoneNumberValidDigits')
+        phone.send_keys("123123123")
         # 8. Wpisz bledny e-mail
+        email=driver.find_element_by_name('email')
+        email.send_keys('sjahjhaf.pl')
         # 9. Wpisz haslo
         # 10. Wybierz kraj
-        # 11. Zaakceptuj polityke prywatnisci
+        # 11. Zaakceptuj polityke prywatnosci
         # 12. Kliknij Zarejestruj sie
 
 
@@ -46,6 +58,9 @@ class WizzairRegistration(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
+
+
 
 
 
