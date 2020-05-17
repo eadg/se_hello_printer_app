@@ -11,7 +11,7 @@ class WizzairRegistration(unittest.TestCase):
         self.driver.maximize_window()
         self.driver.get("https://wizzair.com/pl-pl#/")
 
-    def testWrongEmail(self):
+    def testClickLogin(self):
         driver = self.driver
         # 1. Kliknij "Zalguj sie"
         zaloguj_btn = WebDriverWait(driver, 20)\
@@ -19,7 +19,24 @@ class WizzairRegistration(unittest.TestCase):
         zaloguj_btn.click()
 
         # Czekam na koncu 3 sekundy
-        sleep(8)
+        sleep(3)
+
+    def testInputWrong(self):
+        '''extended by sing-in with mail '''
+        invalid_email="mareknowak.pl"
+        driver = self.driver
+        # 1. Kliknij "Zalguj sie"
+        zaloguj_btn = WebDriverWait(driver, 20)\
+        .until(EC.element_to_be_clickable((By.XPATH, '//button[@data-test="navigation-menu-signin"]')))
+        zaloguj_btn.click()
+        # Czekam na koncu 3 sekundy
+        sleep(3)
+        input_mail = WebDriverWait(driver, 20)\
+        .until(EC.element_to_be_clickable((By.XPATH, '//input[@data-test="login-modal-email"]')))
+        input_mail.send_keys(invalid_email)
+        driver.find_element_by_xpath('//button[@data-test="loginmodal-signin"]').click()
+        sleep(3)
+
 
     def tearDown(self):
         self.driver.quit()
