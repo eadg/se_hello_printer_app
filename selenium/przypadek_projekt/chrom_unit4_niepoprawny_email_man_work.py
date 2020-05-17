@@ -4,6 +4,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from time import sleep
+from selenium.webdriver.common.keys import Keys
 
 class WizzairRegistration(unittest.TestCase):
     def setUp(self):
@@ -13,7 +14,7 @@ class WizzairRegistration(unittest.TestCase):
 
     def testWrongEmail(self):
         driver = self.driver
-        # 1. Kliknij "Zalguj sie"
+        # 1. Kliknij "Zalguj się"
         zaloguj_btn = WebDriverWait(driver, 60)\
         .until(EC.element_to_be_clickable((By.XPATH, '//button[@data-test="navigation-menu-signin"]')))
         zaloguj_btn.click()
@@ -21,14 +22,14 @@ class WizzairRegistration(unittest.TestCase):
         rejestracja_btn = WebDriverWait(driver, 60)\
         .until(EC.element_to_be_clickable((By.XPATH, '//button[text()=" Rejestracja "]')))
         rejestracja_btn.click()
-        # 3. Wprowadz imie
+        # 3. Wprowadź imię
         name_field = WebDriverWait(driver, 60)\
         .until(EC.presence_of_element_located((By.NAME, 'firstName')))
         name_field.send_keys("Marek")
-        # 4. Wprowadz nazwisko
+        # 4. Wprowadź nazwisko
         nazwisko_field=driver.find_element_by_name('lastName')
         nazwisko_field.send_keys("Nowak")
-        # 5. Wybierz plec
+        # 5. Wybierz płeć
         name_field.click()
         gender=driver.find_element_by_xpath('//label[@data-test="register-gendermale"]') # Mezczyzna
         gender.click()
@@ -37,17 +38,20 @@ class WizzairRegistration(unittest.TestCase):
         country_code.click()
         country_code_input=driver.find_element_by_name('phone-number-country-code')
         country_code_input.send_keys("+48")
+        country_code_input.send_keys(Keys.RETURN)
 
         # 7. Wpisz numer telefonu
         phone=driver.find_element_by_name('phoneNumberValidDigits')
         phone.send_keys("123123123")
-        # 8. Wpisz bledny e-mail
+        # 8. Wpisz błęny e-mail
         email=driver.find_element_by_name('email')
         email.send_keys('sjahjhaf.pl')
-        # 9. Wpisz haslo
+        # 9. Wpisz hasło
+        password=driver.find_element_by_css_selector('input[data-test="booking-register-password"]')
+        password.send_keys('Qqwerty123@')
         # 10. Wybierz kraj
-        # 11. Zaakceptuj polityke prywatnosci
-        # 12. Kliknij Zarejestruj sie
+        # 11. Zaakceptuj politykę prywatności
+        # 12. Kliknij Zarejestruj się
 
 
         # Czekam na koncu 5 sekund
