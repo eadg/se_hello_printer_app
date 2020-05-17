@@ -6,3 +6,6 @@ w chromie: //button[@data-test="navigation-menu-signin"]
 
 
 piszemy wlasne xpathy albo css
+
+
+
