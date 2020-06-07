@@ -125,7 +125,7 @@ if __name__ == '__main__':
 TC nr 1: ...
 1. Otwórz panel notyfikacji w smarffonie
 2. Sprawdz czy znajduje się na liscie notyfikacja o tytule: "USB debugging connect" oraz tresci "Tap to disable USB debugging."
-3. Jesli jest OK to zwrót test OK
+3. Jesli jest OK to zwrót test OK w zakresie tytułu i podtytułu (asercja)
 
 TC nr 2  - testowanie WIFI w aplikacji ApiDemos:
 1. Kliknij w Preference
