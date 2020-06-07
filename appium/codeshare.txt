@@ -1,0 +1,112 @@
+
+Zajęcia Mobilne WSB wrocław
+
+
+APLIKACJE TESTOWE:
+https://drive.google.com/drive/folders/1NrYJCRditJ18_iG6klRYPXeJyfSxWsKO
+
+
+Folder TOOLS do Android SDK:
+  https://drive.google.com/drive/folders/13vYfomX7IL9HA9Z0MQGu4lGQW5C_nzB7?usp=sharing
+
+
+Maszyna mobilne:
+https://drive.google.com/file/d/10HY_qG9J7OKUCfJB3bjbyWWVZt3mqxt5/view?usp=sharing
+
+
+Przydatne linki:
+http://adbshell.com/commands/adb-devices
+
+https://docs.genymotion.com/gmsaas/1.x/01_Get_Started.html
+https://docs.genymotion.com/gmsaas/1.x/03_Commands.html#list-recipes
+appium.io
+
+
+Przygotowanie środowiska Appium + Android:
+(1) JAVA
+
+sudo apt-get update
+sudo apt-get install default-jre // java runtime environment
+sudo apt-get install default-jdk // java development kit
+sudo add-apt-repository ppa:webupd8team/java
+sudo apt-get update
+
+/usr/lib/jvm/
+wybór wersji JAVA: 
+
+
+
+Ustawienie JAVA_HOME oraz PATH w pliku ~/.bashrc - edytujemy za pomocą poleceni: gedit ~/.bashrc 
+
+
+(2) ANDROID - środowisko
+Zajęcia Mobilne WSB wrocław
+
+
+APLIKACJE TESTOWE:
+https://drive.google.com/drive/folders/1NrYJCRditJ18_iG6klRYPXeJyfSxWsKO
+
+
+Folder TOOLS do Android SDK:
+https://drive.google.com/drive/folders/13vYfomX7IL9HA9Z0MQGu4lGQW5C_nzB7?usp=sharing
+
+
+Maszyna mobilne:
+https://drive.google.com/file/d/10HY_qG9J7OKUCfJB3bjbyWWVZt3mqxt5/view?usp=sharing
+
+
+Przydatne linki:
+http://adbshell.com/commands/adb-devices
+
+https://docs.genymotion.com/gmsaas/1.x/01_Get_Started.html
+https://docs.genymotion.com/gmsaas/1.x/03_Commands.html#list-recipes
+appium.io
+
+
+Przygotowanie środowiska Appium + Android:
+(1) JAVA
+
+sudo apt-get update
+sudo apt-get install default-jre // java runtime environment
+sudo apt-get install default-jdk // java development kit
+sudo add-apt-repository ppa:webupd8team/java
+sudo apt-get update
+
+/usr/lib/jvm/
+wybór wersji JAVA: 
+
+
+Ustawienie JAVA_HOME oraz PATH w pliku ~/.bashrc - edytujemy za pomocą poleceni: gedit ~/.bashrc 
+
+(2) ANDROID - środowisko
+
+(3) NODE+NPM+APPIUM+APPIUM DOCTOR
+sprawdzenia:
+
+node -v
+npm -v
+appium-doctor
+instalacja appium desktop (wykonano)
+
+
+(4) Python3, pip3, appium python client, pycharm konfiguracja
+pip3 install Appium-Python-Client
+
+python3
+import selenium
+help(selenium) // spisać nr wersji selenium
+exit()
+
+(5) Lokalizowanie elementów - uiautomationviewer oraz w wykorzystaniem CLI gmsaas 
+
+
+instalacja i konfiguracja gmsaas wg https://docs.genymotion.com/gmsaas/1.x/01_Get_Started.html oraz Commands
+
+
+w pliku bashrc polecenie : gedit ~/.bashrc 
+wprowadzić na końcu :
+export PATH="$HOME/.local/bin/:$PATH"
+
+
+
+
