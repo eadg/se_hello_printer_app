@@ -1,0 +1,272 @@
+
+Zajęcia Mobilne WSB wrocław
+
+
+APLIKACJE TESTOWE:
+https://drive.google.com/drive/folders/1NrYJCRditJ18_iG6klRYPXeJyfSxWsKO
+
+
+Folder TOOLS do Android SDK:
+  https://drive.google.com/drive/folders/13vYfomX7IL9HA9Z0MQGu4lGQW5C_nzB7?usp=sharing
+
+
+Maszyna mobilne:
+https://drive.google.com/file/d/10HY_qG9J7OKUCfJB3bjbyWWVZt3mqxt5/view?usp=sharing
+
+
+Przydatne linki:
+http://adbshell.com/commands/adb-devices
+
+https://docs.genymotion.com/gmsaas/1.x/01_Get_Started.html
+https://docs.genymotion.com/gmsaas/1.x/03_Commands.html#list-recipes
+appium.io
+
+
+Przygotowanie środowiska Appium + Android:
+(1) JAVA
+
+sudo apt-get update
+sudo apt-get install default-jre // java runtime environment
+sudo apt-get install default-jdk // java development kit
+sudo add-apt-repository ppa:webupd8team/java
+sudo apt-get update
+
+/usr/lib/jvm/
+wybór wersji JAVA: 
+
+
+
+Ustawienie JAVA_HOME oraz PATH w pliku ~/.bashrc - edytujemy za pomocą poleceni: gedit ~/.bashrc 
+
+
+(2) ANDROID - środowisko
+Zajęcia Mobilne WSB wrocław
+
+
+APLIKACJE TESTOWE:
+https://drive.google.com/drive/folders/1NrYJCRditJ18_iG6klRYPXeJyfSxWsKO
+
+
+Folder TOOLS do Android SDK:
+https://drive.google.com/drive/folders/13vYfomX7IL9HA9Z0MQGu4lGQW5C_nzB7?usp=sharing
+
+
+Maszyna mobilne:
+https://drive.google.com/file/d/10HY_qG9J7OKUCfJB3bjbyWWVZt3mqxt5/view?usp=sharing
+
+
+Przydatne linki:
+http://adbshell.com/commands/adb-devices
+
+https://docs.genymotion.com/gmsaas/1.x/01_Get_Started.html
+https://docs.genymotion.com/gmsaas/1.x/03_Commands.html#list-recipes
+appium.io
+
+
+Przygotowanie środowiska Appium + Android:
+(1) JAVA
+
+sudo apt-get update
+sudo apt-get install default-jre // java runtime environment
+sudo apt-get install default-jdk // java development kit
+sudo add-apt-repository ppa:webupd8team/java
+sudo apt-get update
+
+/usr/lib/jvm/
+wybór wersji JAVA: 
+
+
+Ustawienie JAVA_HOME oraz PATH w pliku ~/.bashrc - edytujemy za pomocą poleceni: gedit ~/.bashrc 
+
+(2) ANDROID - środowisko
+
+(3) NODE+NPM+APPIUM+APPIUM DOCTOR
+sprawdzenia:
+
+node -v
+npm -v
+appium-doctor
+instalacja appium desktop (wykonano)
+
+
+(4) Python3, pip3, appium python client, pycharm konfiguracja
+pip3 install Appium-Python-Client
+
+python3
+import selenium
+help(selenium) // spisać nr wersji selenium
+exit()
+
+(5) Lokalizowanie elementów - uiautomationviewer oraz w wykorzystaniem CLI gmsaas 
+
+
+instalacja i konfiguracja gmsaas wg https://docs.genymotion.com/gmsaas/1.x/01_Get_Started.html oraz Commands
+
+
+w pliku bashrc polecenie : gedit ~/.bashrc 
+wprowadzić na końcu :
+export PATH="$HOME/.local/bin/:$PATH"
+
+(6) Tworzenie testow automatycznych w PYTHON i APPIUM
+
+PATH = lambda p: os.path.abspath(
+    os.path.join(os.path.dirname(__file__),p)
+)
+
+
+
+if __name__ == '__main__':
+    suite = unittest.TestLoader().loadTestsFromTestCase(TestowanieAplikacji)
+    unittest.TextTestRunner(verbosity=2).run(suite)
+    
+
+(7) Przypadki testowe:
+
+TC nr 1: ...
+1. Otwórz panel notyfikacji w smarffonie
+2. Sprawdz czy znajduje się na liscie notyfikacja o tytule: "USB debugging connect" oraz tresci "Tap to disable USB debugging."
+3. Jesli jest OK to zwrót test OK w zakresie tytułu i podtytułu (asercja)
+
+TC nr 2  - testowanie WIFI w aplikacji ApiDemos:
+1. Kliknij w Preference
+2. Kliknij w "3. Preference dependencies"
+3. Zaznacz checkboxy wszystkie, które są zaznaczalne
+4. Kliknij w WIFI SETTINGS
+5. Wpisz hasło "1234"
+6. Sprawdz poprawnosc hasła wpisanego i hasła widocznego na ekranie
+7. Kliknij OK
+8. Kliknij przycisk "back" androidowy dwukrotnie 
+
+
+
+
+
+import os
+import unittest
+from time import sleep
+
+from appium import webdriver
+
+PATH = lambda p: os.path.abspath(
+    os.path.join(os.path.dirname(__file__), p)
+)
+
+
+class TestowanieAplikacji(unittest.TestCase):
+    def setUp(self):
+        desired_caps = {}
+        desired_caps['platformName'] = 'Android'
+        desired_caps['platfomVersion'] = '7.0'
+        desired_caps['deviceName'] = 'Gigaset GS170'
+        desired_caps['app'] = PATH('ApiDemos-debug.apk')
+        desired_caps['appPackage'] = 'io.appium.android.apis'
+        desired_caps['appActivity'] = 'io.appium.android.apis.ApiDemos'
+
+        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+
+    def tearDown(self):
+        self.driver.quit()
+
+    # checking notifications visibility
+
+    def test_notifications(self):
+        self.driver.open_notifications()
+        sleep(5)
+        elements = self.driver.find_elements_by_class_name('android.widget.TextView')
+        print('Liczba notyfikacji wynosi' + elements.__len__().__str__())
+        title = False
+        body = False
+
+        for el in elements:
+            print('element o tresci:' + el.text)
+            if el.text == 'USB debugging connected':
+                title = True
+            elif el.text == 'Tap to disable USB debugging.':
+                body = True
+
+        self.assertTrue(title)
+        self.assertTrue(body)
+
+if __name__ == '__main__':
+    suite = unittest.TestLoader().loadTestsFromTestCase(TestowanieAplikacji)
+    unittest.TextTestRunner(verbosity=2).run(suite)
+
+
+
+
+
+
+
+TC2 - testowanie wifi
+
+import os
+import unittest
+from time import sleep
+
+from appium import webdriver
+
+PATH = lambda p: os.path.abspath(
+    os.path.join(os.path.dirname(__file__), p)
+)
+
+
+class TestowanieAplikacji(unittest.TestCase):
+    def setUp(self):
+        desired_caps = {}
+        desired_caps['platformName'] = 'Android'
+        desired_caps['platfomVersion'] = '7.0'
+        desired_caps['deviceName'] = 'Gigaset GS170'
+        desired_caps['app'] = PATH('ApiDemos-debug.apk')
+        desired_caps['appPackage'] = 'io.appium.android.apis'
+        desired_caps['appActivity'] = 'io.appium.android.apis.ApiDemos'
+
+        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+
+    def tearDown(self):
+        self.driver.quit()
+
+
+    def test_wifi_settings(self):
+        self.driver.find_element_by_accessibility_id("Preference").click()
+        self.driver.find_element_by_accessibility_id("3. Preference dependencies").click()
+
+        checkboxes = self.driver.find_elements_by_android_uiautomator('new UiSelector().checkable(true)')
+
+        for el in checkboxes:
+            el.click()
+
+        for el in checkboxes:
+            is_checked_value = self.driver.find_element_by_class_name("android.widget.CheckBox").get_attribute(
+                "checked")
+            if is_checked_value == 'true':
+                print("Wszystkie checkboxy są zaznaczone")
+
+        self.driver.find_element_by_xpath("//*[@text='WiFi settings']").click()
+
+        #inne opcje na kliknięcie na "WiFi settings:
+        # self.driver.find_element_by_class_name("android.widget.RelativeLayout[2]")
+        # self.driver.find_element_by_xpath("android.widget.RelativeLayout"[1])
+
+        sleep(1)
+        passwordInput = "1234"
+        self.driver.find_element_by_class_name("android.widget.EditText").send_keys(passwordInput)
+        sleep(10)
+        passwordCurrent = self.driver.find_element_by_class_name("android.widget.EditText").get_attribute("text")
+
+        self.assertEqual(passwordCurrent,passwordInput)
+
+        self.driver.find_element_by_id("android:id/button1").click()
+
+        self.driver.back()
+        self.driver.keyevent(4) // klikniecie wstecz - dziala tak samo jak w linijce wyżej
+        sleep(3)
+
+if __name__ == '__main__':
+    suite = unittest.TestLoader().loadTestsFromTestCase(TestowanieAplikacji)
+    unittest.TextTestRunner(verbosity=2).run(suite)
+    
+    
+    
+    
+ XPATH:
+ //tagName[@attribute="value"]
