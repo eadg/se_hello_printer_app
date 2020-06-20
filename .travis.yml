@@ -18,3 +18,9 @@ script:
  - make test
  - make docker_build
  - make docker_push
+
+deploy:
+
+ - provider: heroku
+ - app: cryptic-shore-92661
+ - api_key: ${HEROKU_API_KEY}
