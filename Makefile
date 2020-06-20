@@ -32,7 +32,7 @@ USERNAME=jakubrokicki24
 TAG=$(USERNAME)/hello-world-printer
 
 docker_push: docker_build
-	docker login --username $(USERNAME) --password $${DOCKER_PASSWORD}; \
+	@docker login --username $(USERNAME) --password $${DOCKER_PASSWORD}; \
 	docker tag hello_ap_printer $(TAG); \
 	docker push $(TAG); \
 	docker logout; 
