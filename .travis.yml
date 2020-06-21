@@ -22,5 +22,5 @@ script:
 deploy:
 
  - provider: heroku
- - app: cryptic-shore-92661
+ - app: frozen-citadel-47884
  - api_key: ${HEROKU_API_KEY}
