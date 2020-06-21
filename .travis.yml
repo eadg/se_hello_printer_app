@@ -1,26 +1,21 @@
 language: python
 
 services:
-
  - docker
 
 python:
-
  - "3.6"
 
 install:
-
  - make deps 
 
 script:
- 
  - make lint
  - make test
  - make docker_build
  - make docker_push
 
 deploy:
-
  - provider: heroku
  - app: frozen-citadel-47884
  - api_key: ${HEROKU_API_KEY}
