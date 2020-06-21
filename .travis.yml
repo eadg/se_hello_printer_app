@@ -16,6 +16,6 @@ script:
  - make docker_push
 
 deploy:
- - provider: heroku
- - app: frozen-citadel-47884
- - api_key: ${HEROKU_API_KEY}
+ provider: heroku
+ app: frozen-citadel-47884
+ api_key: ${HEROKU_API_KEY}
